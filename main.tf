@@ -65,7 +65,7 @@ resource "aws_instance" "splunk-instance" {
   instance_type = "t2.large"
   subnet_id     = aws_subnet.public_subnet.id
 
-  security_groups             = ["${aws_security_group.linux-security-tools.id}"]
+  security_groups             = ["${aws_security_group.linux-splunk-tools.id}"]
   associate_public_ip_address = true
 
   root_block_device {
@@ -119,7 +119,7 @@ resource "aws_security_group" "win-kali-security-group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["11.11.11.11/32"]
+    cidr_blocks = [var.ssh_winkali_cidr]
   }
 
   ingress {
@@ -150,9 +150,9 @@ resource "aws_security_group" "win-kali-security-group" {
 }
 
 # Create Security Group for Splunk Instance.
-resource "aws_security_group" "linux-security-tools" {
+resource "aws_security_group" "linux-splunk-tools" {
   name_prefix = "security-tools-"
-  description = "Ingress and egress rules for Security Tools Box"
+  description = "Ingress and egress rules for Splunk Instance"
   vpc_id      = aws_vpc.homelab_vpc.id
 
   ingress {
@@ -187,7 +187,7 @@ resource "aws_security_group" "linux-security-tools" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["11.11.11.11/32"]
+    cidr_blocks = [var.ssh_splunk_cidr]
   }
 
   ingress {

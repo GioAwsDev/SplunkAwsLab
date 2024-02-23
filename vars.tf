@@ -30,3 +30,15 @@ variable "region" {
 variable "public_subnet_cidr" {
   default = "10.20.0.0/22"
 }
+
+variable "ssh_winkali_cidr" {
+  description = "CIDR block for SSH traffic"
+  type        = string
+  default     = "11.11.11.11/32"  # Replace this with your desired CIDR block
+}
+
+variable "ssh_splunk_cidr" {
+  description = "CIDR block for SSH traffic"
+  type        = string
+  default     = "11.11.11.11/32"  # Replace this with your desired CIDR block
+}
